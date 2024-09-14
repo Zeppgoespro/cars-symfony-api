@@ -1,0 +1,42 @@
+# version: '3.8'
+
+services:
+    php-cars:
+        build: .
+        ports:
+            - "80:80"
+        volumes:
+            - .:/var/www/html
+        networks:
+            - symfony-network
+        depends_on:
+            - mysql-cars
+
+    mysql-cars:
+        image: mysql:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: symfony
+        volumes:
+            - db_data:/var/lib/mysql
+        networks:
+            - symfony-network
+
+    phpmyadmin-cars:
+        image: phpmyadmin:latest
+        ports:
+            - "81:80"
+        environment:
+            PMA_HOST: mysql-cars
+            MYSQL_ROOT_PASSWORD: root
+        depends_on:
+            - mysql-cars
+        networks:
+            - symfony-network
+
+networks:
+    symfony-network:
+        driver: bridge
+
+volumes:
+    db_data:
