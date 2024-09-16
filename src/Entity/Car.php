@@ -14,13 +14,13 @@ class Car
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $brand = null;
+    #[ORM\ManyToOne(targetEntity: Brand::class)]
+    private ?Brand $brand = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $model = null;
+    #[ORM\ManyToOne(targetEntity: Model::class)]
+    private ?Model $model = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?string $photo = null;
 
     #[ORM\Column]
@@ -31,24 +31,24 @@ class Car
         return $this->id;
     }
 
-    public function getBrand(): ?string
+    public function getBrand(): ?Brand
     {
         return $this->brand;
     }
 
-    public function setBrand(string $brand): static
+    public function setBrand(Brand $brand): static
     {
         $this->brand = $brand;
 
         return $this;
     }
 
-    public function getModel(): ?string
+    public function getModel(): ?Model
     {
         return $this->model;
     }
 
-    public function setModel(string $model): static
+    public function setModel(Model $model): static
     {
         $this->model = $model;
 

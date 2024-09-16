@@ -14,11 +14,11 @@ class LoanRequest
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $car_id = null;
+    #[ORM\ManyToOne(targetEntity: Car::class)]
+    private ?Car $car = null;
 
-    #[ORM\Column]
-    private ?int $program_id = null;
+    #[ORM\ManyToOne(targetEntity: CreditProgram::class)]
+    private ?CreditProgram $credit_program = null;
 
     #[ORM\Column(type: 'float', precision: 10, scale: 2)]
     private ?float $initial_payment = null;
@@ -31,36 +31,36 @@ class LoanRequest
         return $this->id;
     }
 
-    public function getCarId(): ?int
+    public function getCar(): ?Car
     {
-        return $this->car_id;
+        return $this->car;
     }
 
-    public function setCarId(int $car_id): static
+    public function setCar(Car $car): static
     {
-        $this->car_id = $car_id;
+        $this->car = $car;
 
         return $this;
     }
 
-    public function getProgramId(): ?int
+    public function getCreditProgram(): ?CreditProgram
     {
-        return $this->program_id;
+        return $this->credit_program;
     }
 
-    public function setProgramId(int $program_id): static
+    public function setCreditProgram(CreditProgram $credit_program): static
     {
-        $this->program_id = $program_id;
+        $this->credit_program = $credit_program;
 
         return $this;
     }
 
-    public function getInitialPayment(): ?int
+    public function getInitialPayment(): ?float
     {
         return $this->initial_payment;
     }
 
-    public function setInitialPayment(int $initial_payment): static
+    public function setInitialPayment(float $initial_payment): static
     {
         $this->initial_payment = $initial_payment;
 
